@@ -25,7 +25,7 @@ function submitApplication(){
  function finish(ok,message){clearTimeout(timer);window.removeEventListener('message',receive);form.remove();iframe.remove();
  if(ok){answers={};pendingRequest=null;app.innerHTML=`<section class="flow"><h1 tabindex="-1">상담 신청이<br>접수되었습니다.</h1><p>썬파트너스 담당자가 선택하신 시간대를 참고해 연락드리겠습니다.</p><p>접수번호: ${esc(requestId.slice(0,8))}</p><button class="cta" id="done">처음으로</button></section>`;document.getElementById('done').onclick=home;document.querySelector('h1').focus();}
  else{button.disabled=false;button.textContent='다시 신청하기';document.querySelectorAll('.flow-nav button').forEach(b=>b.disabled=false);document.getElementById('error').textContent=message;}}
- function receive(event){let origin;try{origin=new URL(event.origin)}catch{return}if(origin.protocol!=='https:'||!(origin.hostname==='script.googleusercontent.com'||origin.hostname.endsWith('.script.googleusercontent.com')))return;
+ function receive(event){let origin;try{origin=new URL(event.origin)}catch{return}if(origin.protocol!=='https:'||!(origin.hostname==='script.googleusercontent.com'||origin.hostname.endsWith('.script.googleusercontent.com')||origin.hostname.endsWith('-script.googleusercontent.com')))return;
  const data=event.data;if(data?.kind!=='sunpartners-receipt'||data.requestId!==requestId)return;finish(data.ok===true,data.message||'저장하지 못했습니다. 다시 시도해주세요.');}
  window.addEventListener('message',receive);document.body.append(iframe,form);
  timer=setTimeout(()=>finish(false,'접수 확인이 지연되고 있습니다. 다시 신청해 주세요. 같은 신청은 중복 저장하지 않습니다.'),45000);form.submit();
