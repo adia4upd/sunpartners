@@ -18,3 +18,6 @@ body>header nav a.nav-consult{display:inline-flex;align-items:center;white-space
 .hero-image{width:100%;min-width:0}
 .hero-image img{height:auto;max-width:100%}
 @media(max-width:800px){.hero-image img{aspect-ratio:auto;object-fit:contain;object-position:center}}
+
+/* Mobile images participate in normal flow; no absolute/aspect-ratio dependency. */
+@media(max-width:800px){.service-detail-hero figure{min-height:0;aspect-ratio:auto;width:100%}.service-detail-hero img{position:static;display:block;width:100%;height:auto;max-width:100%;object-fit:contain}.story-photo img,.story-empathy>.story-photo img{height:auto;aspect-ratio:auto;object-fit:contain}.service-expanded>.service-card img{display:block;height:auto;max-width:100%;object-fit:contain}}
