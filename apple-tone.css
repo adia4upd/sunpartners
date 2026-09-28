@@ -21,3 +21,18 @@ body>header nav a.nav-consult{display:inline-flex;align-items:center;white-space
 
 /* Mobile images participate in normal flow; no absolute/aspect-ratio dependency. */
 @media(max-width:800px){.service-detail-hero figure{min-height:0;aspect-ratio:auto;width:100%}.service-detail-hero img{position:static;display:block;width:100%;height:auto;max-width:100%;object-fit:contain}.story-photo img,.story-empathy>.story-photo img{height:auto;aspect-ratio:auto;object-fit:contain}.service-expanded>.service-card img{display:block;height:auto;max-width:100%;object-fit:contain}}
+
+/* Selective brand-color copy emphasis, without changing layout. */
+#app .copy-accent{color:#0066cc;font-weight:650}
+#app h1 .copy-accent,#app h2 .copy-accent,#app h3 .copy-accent{color:var(--pink);font-weight:inherit}
+#app .consult-value li b{color:#0066cc}
+
+/* Section-level blue accents, retaining the original layout and images. */
+#app .eyebrow,#app .service-no{color:#0066cc}
+#app .service-highlights h5,#app .service-guide h5{color:#0066cc}
+#app .service-example h4{color:#0066cc}
+#app .benefit-grid article>span{color:#0071e3;font-weight:700}
+#app .audience-grid article>span{color:#0066cc;font-weight:650}
+#app .service-strip>span{color:#0066cc}
+#app .service-example{border-left:3px solid #0071e3}
+#app .faq details[open]>summary,#app .service-faq details[open]>summary{color:#0066cc}
