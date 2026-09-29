@@ -36,3 +36,60 @@ body>header nav a.nav-consult{display:inline-flex;align-items:center;white-space
 #app .service-strip>span{color:#0066cc}
 #app .service-example{border-left:3px solid #0071e3}
 #app .faq details[open]>summary,#app .service-faq details[open]>summary{color:#0066cc}
+
+/* Hand-drawn editorial marks: limited to four key phrases. */
+#app h1 .copy-accent,#app h2 .copy-accent,#app h3 .copy-accent,#app h2 .topic-accent{font-weight:800}
+#app p .copy-accent{font-weight:700}
+#app .cta{font-weight:650}
+#app .pencil-underline,#app .pencil-circle{position:relative;display:inline-block;isolation:isolate}
+#app .pencil-underline::after{content:"";position:absolute;left:-2%;right:-2%;bottom:-4px;height:5px;border-bottom:2px solid #c4433f;border-radius:40% 20% 45% 25%;transform:rotate(-2deg);pointer-events:none;opacity:.85}
+#app .pencil-circle::after{content:"";position:absolute;inset:-7px -12px -5px -10px;border:2px solid #c4433f;border-right-color:transparent;border-radius:48% 53% 45% 51%;transform:rotate(-7deg);pointer-events:none;opacity:.85}
+#app .pencil-circle::before{content:"";position:absolute;inset:-4px -9px -7px -12px;border:1px solid #c4433f;border-left-color:transparent;border-bottom-color:transparent;border-radius:52% 45% 52% 47%;transform:rotate(-3deg);pointer-events:none;opacity:.5}
+#app .pencil-check::before{content:"";display:inline-block;width:8px;height:16px;border-right:2px solid #c4433f;border-bottom:2.5px solid #c4433f;transform:rotate(37deg) translateY(-2px);margin-right:14px;opacity:.9}
+
+/* Clear red pencil marks with stronger, deliberate strokes. */
+#app .pencil-underline::after{height:6px;bottom:-5px;border-bottom:4px solid #ed1c24;opacity:1;transform:rotate(-2deg)}
+#app .pencil-circle::after{inset:-8px -13px -6px -11px;border:3px solid #ed1c24;border-right-color:transparent;opacity:1;transform:rotate(-7deg)}
+#app .pencil-circle::before{inset:-5px -10px -8px -13px;border:2px solid #ed1c24;border-left-color:transparent;border-bottom-color:transparent;opacity:1}
+#app .pencil-check::before{width:9px;height:18px;border-right:3px solid #ed1c24;border-bottom:3px solid #ed1c24;opacity:1}
+
+/* Title contrast and clear red handwritten V marks across the page. */
+#app .hero-copy h1.partner-headline{font-size:clamp(34px,5.1vw,68px);line-height:1.35}
+#app h1 .copy-accent{font-size:1.22em;line-height:1.16}
+#app .section h2,#app .closing h2{font-size:clamp(29px,3.8vw,52px);line-height:1.4}
+#app h2 .copy-accent,#app h2 .topic-accent{font-size:1.15em;line-height:1.2}
+#app h3 .copy-accent{font-size:1.08em}
+#app .pencil-v-point::before{content:"";display:inline-block;width:8px;height:17px;border-right:3px solid #ed1c24;border-bottom:3px solid #ed1c24;transform:rotate(36deg) translateY(-3px);margin-right:13px;vertical-align:baseline}
+@media(max-width:600px){#app .hero-copy h1.partner-headline{font-size:clamp(29px,8.3vw,43px)}#app .section h2,#app .closing h2{font-size:29px}#app h1 .copy-accent{font-size:1.17em}#app h2 .copy-accent,#app h2 .topic-accent{font-size:1.12em}}
+
+/* Keep the recruiting story primary; details stay available on demand. */
+.service-more>summary{cursor:pointer;color:#0066cc;font-size:16px;font-weight:600;padding:24px 40px;border-top:1px solid #e5e5e7;line-height:1.5}
+.service-more[open]>summary{border-bottom:1px solid #e5e5e7}
+#app .service-highlights h5,#app .service-guide h5{color:var(--ink)}
+#app .eyebrow,#app .service-strip>span{color:#6e6e73}
+#app .service-example h4{color:var(--ink)}
+#app .service-example{border-left:0}
+#app .service-highlights .copy-accent,#app .service-guide .copy-accent,#app .service-example .copy-accent,#app .service-audience .copy-accent{color:inherit;font-weight:600}
+@media(max-width:600px){.service-more>summary{padding:22px 28px}}
+
+/* Supplied company artwork: CSS framing only; original retained. */
+.brand{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.brand-symbol{position:relative;display:inline-block;width:34px;height:36px;overflow:hidden;border-radius:50%;flex-shrink:0}
+.brand-symbol img{position:absolute;width:174px;max-width:none;height:auto;left:-17px;top:-38px}
+.company-logo{width:min(560px,100%);aspect-ratio:3.6;overflow:hidden;position:relative;margin:0 auto 24px;border-radius:16px}
+.company-logo img{position:absolute;width:120%;max-width:none;height:auto;left:-10%;top:-90%}
+.company-name{font-size:24px;font-weight:700;letter-spacing:-.04em;margin-bottom:12px;color:#1d1d1f}
+#app .company-signature{font-size:17px;margin:0 auto 40px;max-width:520px;color:#6e6e73}
+@media(max-width:600px){.brand-symbol{width:28px;height:30px}.brand-symbol img{width:145px;left:-14px;top:-32px}.company-logo{border-radius:12px}.company-name{font-size:21px}#app .company-signature{font-size:15px;margin-bottom:32px}}
+
+.company-logo{aspect-ratio:auto;overflow:visible;border-radius:0;background:none}
+.company-logo img{position:static;display:block;width:100%;height:auto;max-width:100%}
+.brand-symbol{width:34px;height:36px;border-radius:0}
+.brand-symbol img{width:140px;left:-4px;top:-6px}
+@media(max-width:600px){.brand-symbol{width:28px;height:30px}.brand-symbol img{width:116px;left:-4px;top:-5px}}
+
+/* Compact company signature above the consultation. */
+.company-logo{width:min(260px,70%);margin:0 auto 12px}
+.company-name{font-size:18px;margin-bottom:8px}
+#app .company-signature{font-size:15px;margin-bottom:28px}
+@media(max-width:600px){.company-logo{width:min(210px,68%)}.company-name{font-size:17px}#app .company-signature{font-size:14px;margin-bottom:24px}}
