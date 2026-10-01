@@ -87,14 +87,29 @@ function submitApplication(){
  const iframe=document.createElement('iframe');iframe.name='receipt_'+requestId.replaceAll('-','');iframe.hidden=true;iframe.title='신청 접수 처리';
  const form=document.createElement('form');form.method='POST';form.action=ENDPOINT;form.target=iframe.name;form.hidden=true;
  const input=document.createElement('input');input.name='payload';input.value=JSON.stringify({...answers,requestId,consentVersion:'sunpartners-2026-09-21-v2',campaign:new URLSearchParams(location.search).get('utm_campaign')||'',website:''});form.append(input);
- let timer;
- function finish(ok,message){submitting=false;document.querySelectorAll('#partner-form input,#partner-form select').forEach(el=>el.disabled=false);clearTimeout(timer);window.removeEventListener('message',receive);form.remove();iframe.remove();
- if(ok){answers={};pendingRequest=null;document.getElementById('partner-form').innerHTML=`<section class="flow"><h2 tabindex="-1">상담 신청이<br>접수되었습니다.</h2><p>썬파트너스 담당자가 선택하신 시간대를 참고해 연락드리겠습니다.</p><p>접수번호: ${esc(requestId.slice(0,8))}</p><button class="cta" id="done">처음으로</button></section>`;document.getElementById('done').onclick=()=>{const d=document.getElementById('consult-dialog');d.close();d.remove()};document.querySelector('#partner-form h2').focus();}
+ let timer;let settled=false;
+ function finish(ok,message){if(settled)return;settled=true;submitting=false;document.querySelectorAll('#partner-form input,#partner-form select').forEach(el=>el.disabled=false);clearTimeout(timer);window.removeEventListener('message',receive);form.remove();iframe.remove();
+ if(ok){answers={};pendingRequest=null;document.getElementById('partner-form').innerHTML=`<section class="flow"><h2 tabindex="-1">상담 신청이<br>접수되었습니다.</h2><p>썬파트너스 담당자가 선택하신 시간대를 참고해 연락드리겠습니다.</p><p>접수번호: ${esc(requestId.slice(0,8))}</p><button class="cta" id="done">처음으로</button></section>`;document.getElementById('done').onclick=()=>{const d=document.getElementById('consult-dialog');d.close();d.remove()};document.querySelector('#partner-form h2').focus();trackSavedLead(requestId);}
  else{button.disabled=false;button.textContent='다시 신청하기';document.querySelectorAll('.flow-nav button').forEach(b=>b.disabled=false);document.getElementById('error').textContent=message;}}
  function receive(event){let origin;try{origin=new URL(event.origin)}catch{return}if(origin.protocol!=='https:'||!(origin.hostname==='script.googleusercontent.com'||origin.hostname.endsWith('.script.googleusercontent.com')||origin.hostname.endsWith('-script.googleusercontent.com')))return;
  const data=event.data;if(data?.kind!=='sunpartners-receipt'||data.requestId!==requestId)return;finish(data.ok===true,data.message||'저장하지 못했습니다. 다시 시도해주세요.');}
  window.addEventListener('message',receive);document.body.append(iframe,form);
  timer=setTimeout(()=>finish(false,'접수 확인이 지연되고 있습니다. 다시 신청해 주세요. 같은 신청은 중복 저장하지 않습니다.'),45000);form.submit();
+}
+
+
+// Only called after the existing save receipt has completed the success UI.
+// Request IDs are local deduplication keys; no applicant data is passed to Meta.
+const reportedLeadRequests = new Set();
+function trackSavedLead(requestId){
+ try {
+  if(!requestId || typeof window.fbq!=='function' || reportedLeadRequests.has(requestId))return;
+  const key='sunpartners:lead:'+requestId;
+  try { if(sessionStorage.getItem(key)==='1')return; } catch (_) {}
+  reportedLeadRequests.add(requestId);
+  try { sessionStorage.setItem(key,'1'); } catch (_) {}
+  window.fbq('track', 'Lead');
+ } catch (_) { /* Tracking must never interrupt an already saved application. */ }
 }
 
 // Ad entry reuses the existing consultation modal; never submits the form.
