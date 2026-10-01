@@ -96,6 +96,3 @@ function submitApplication(){
  window.addEventListener('message',receive);document.body.append(iframe,form);
  timer=setTimeout(()=>finish(false,'접수 확인이 지연되고 있습니다. 다시 신청해 주세요. 같은 신청은 중복 저장하지 않습니다.'),45000);form.submit();
 }
-
-// Ad entry reuses the existing consultation modal; never submits the form.
-if (new URLSearchParams(location.search).get('apply') === '1') openConsult();
